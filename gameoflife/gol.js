@@ -155,7 +155,6 @@ var GameOfLife = (function () {
     function reset() {
       ctx.fillStyle = '#fff';
       ctx.fillRect(0, 0, width, height); 
-      ctx.fill();
     };
 
     function redraw(board) {
