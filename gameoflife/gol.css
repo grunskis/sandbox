@@ -4,3 +4,15 @@
 
    -khtml-user-select: none;
 }
+
+html {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+#controls {
+    position: absolute;
+
+    top: 0;
+    left: 0;
+}

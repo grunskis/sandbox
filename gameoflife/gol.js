@@ -19,6 +19,10 @@
 
 var GameOfLife = (function () {
 
+  var Color = {
+    BACKGROUND: '#fff', GRID: '#eee', CELL: '#000'
+  };
+
   var Board = function (board, params) {
     var cells = null;
 
@@ -30,7 +34,7 @@ var GameOfLife = (function () {
     (function () {
       rows = params.rows;
       cols = params.cols;
-      
+
       cells = new Array(rows);
       for (var row = 0; row <= rows; row++) {
         cells[row] = new Array(cols);
@@ -137,7 +141,7 @@ var GameOfLife = (function () {
     }());
 
     function drawGridLines() {
-      ctx.strokeStyle = '#eee';
+      ctx.strokeStyle = Color.GRID;
       
       for (var x = params.blocksize+0.5; x <= width; x += params.blocksize) {
         ctx.moveTo(x, 0);
@@ -153,7 +157,7 @@ var GameOfLife = (function () {
     };
 
     function reset() {
-      ctx.fillStyle = '#fff';
+      ctx.fillStyle = Color.BACKGROUND;
       ctx.fillRect(0, 0, width, height); 
     };
 
@@ -164,7 +168,7 @@ var GameOfLife = (function () {
     };
 
     function draw(board) {
-      ctx.fillStyle = '#000';
+      ctx.fillStyle = Color.CELL;
 
       var blocksize = params.blocksize - 0.5;
 
@@ -198,7 +202,7 @@ var GameOfLife = (function () {
   var interval = null;
 
   function init(canvas) {
-    params.blocksize = 15;
+    params.blocksize = 30;
     params.canvas = canvas;
     
     screen = new Screen(params);
