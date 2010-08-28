@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>grunskis.com</title>
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="gol.css">
+    <script type="text/javascript" src="gol.js"></script>
+    
+    <script type="text/javascript">
+      window.onload = function() {
+        var game = document.getElementById('game');
+     
+        GameOfLife.init(game);
+
+        var start = document.getElementById('start');
+        start.onmousedown = function () {
+          GameOfLife.start();
+        };
+        
+        var stop = document.getElementById('stop');
+        stop.onmousedown = function () {
+          GameOfLife.stop();
+        };
+
+        var reset = document.getElementById('reset');
+        reset.onmousedown = function () {
+          GameOfLife.init(game);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <canvas id="game" width="300" height="300"></canvas>
+    <p>
+      <a id="start" href="#">start</a>
+      <span> | </span>
+      <a id="stop" href="#">stop</a>
+      <span> | </span>
+      <a id="reset" href="#">reset</a>
+    </p>
+    <p id="tick">0</p>
+  </body>
+</html>
