@@ -193,7 +193,7 @@ var GameOfLife = (function () {
     };
   };
 
-  var params = {};
+  var params = null;
 
   var screen = null;
   var board = null;
@@ -201,8 +201,8 @@ var GameOfLife = (function () {
   var before, tick;
   var interval = null;
 
-  function init(canvas) {
-    params.blocksize = 30;
+  function init(canvas, defaults) {
+    params = defaults;
     params.canvas = canvas;
     
     screen = new Screen(params);

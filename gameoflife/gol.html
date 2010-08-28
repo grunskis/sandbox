@@ -10,9 +10,16 @@
     
     <script type="text/javascript">
       window.onload = function() {
-        var game = document.getElementById('game');
+        var canvas = document.getElementById('game');
+
+        var options = {
+          'blocksize': 40
+        }
+
+        canvas.width = screen.width;
+        canvas.height = screen.height;
      
-        GameOfLife.init(game);
+        GameOfLife.init(canvas, options);
 
         var start = document.getElementById('start');
         start.onmousedown = function () {
@@ -26,13 +33,14 @@
 
         var reset = document.getElementById('reset');
         reset.onmousedown = function () {
-          GameOfLife.init(game);
+          GameOfLife.init(canvas, options);
         };
       };
     </script>
   </head>
   <body>
-    <canvas id="game" width="1920" height="1200"></canvas>
+    <canvas id="game" width="120" height="120"></canvas>
+    
     <div id="controls">
       <p>
         <a id="start" href="#">start</a>
@@ -41,7 +49,7 @@
         <span> | </span>
         <a id="reset" href="#">reset</a>
       </p>
-      <p id="tick">0</p>
+      <p>generation: <span id="tick">0</span></p>
     </div>
   </body>
 </html>
