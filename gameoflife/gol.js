@@ -137,7 +137,9 @@ var GameOfLife = (function () {
       height = canvas.height;
 
       reset();
-      drawGridLines();
+      if (params.drawGrid) {
+        drawGridLines();
+      }
     }());
 
     function drawGridLines() {
@@ -163,7 +165,9 @@ var GameOfLife = (function () {
 
     function redraw(board) {
       reset();
-      drawGridLines();
+      if (params.drawGrid) {
+        drawGridLines();
+      }
       draw(board);
     };
 
@@ -240,7 +244,7 @@ var GameOfLife = (function () {
   function  step() {
     var now = millis();
     
-    if (now - before > 300) {
+    if (now - before > params.delay) {
       before = now;
 
       return true;
