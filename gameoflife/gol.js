@@ -33,7 +33,7 @@ var GameOfLife = (function () {
     var cols = null;
     var rows = null;
 
-    var tick = 0;
+    var generation = 0;
 
     (function () {
       rows = Math.ceil(params.rows);
@@ -65,7 +65,7 @@ var GameOfLife = (function () {
           }
         }
 
-        tick = board.tick + 1;
+        generation = board.generation + 1;
       }
     }());
 
@@ -151,7 +151,7 @@ var GameOfLife = (function () {
     return {
       'rows': rows,
       'cols': cols,
-      'tick': tick,
+      'generation': generation,
       'neighbours': neighbours,
       'livingCell': livingCell,
       'toggleCell': toggleCell,
@@ -240,7 +240,7 @@ var GameOfLife = (function () {
   var screen = null;
   var board = null;
 
-  var before, tick;
+  var before, generation;
   var interval = null;
 
   var cellState = null;
@@ -255,7 +255,7 @@ var GameOfLife = (function () {
     params.rows = screen.height / params.blocksize;
 
     start = new Date().getTime();
-    tick = 0;
+    generation = 0;
 
     board = new Board(null, params);
 
@@ -263,7 +263,7 @@ var GameOfLife = (function () {
     canvas.addEventListener('mousemove', mousemove, true);
     canvas.addEventListener('mouseup', mouseup, true);
 
-    el('tick').textContent = "0"; // DEBUG
+    el('generation').textContent = 0;
   };
 
   function mousedown(e) {
@@ -308,18 +308,18 @@ var GameOfLife = (function () {
     if (step()) {
       screen.redraw(board);
       
-      tick++;
+      generation++;
     } else {
-      if (tick > board.tick) {
+      if (generation > board.generation) {
         board = new Board(board, params);
       }
     }
 
-    el('tick').textContent = tick; // DEBUG
+    el('generation').textContent = generation;
   };
 
   function start() {
-    tick++;
+    generation++;
     
     before = millis();
     
@@ -330,13 +330,13 @@ var GameOfLife = (function () {
     params.canvas.removeEventListener('mouseup', mouseup, true);
   };
 
-  function stop() {
+  function pause() {
     clearInterval(interval);
   };
 
   return {
     'init': init,
     'start': start,
-    'stop': stop
+    'pause': pause
   };
 }());

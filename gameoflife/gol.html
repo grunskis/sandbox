@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>grunskis.com</title>
+    <title>Conway's Game of Life</title>
     <link rel="shortcut icon" href="favicon.ico">
 
-    <link rel="stylesheet" href="gol.css">
-    <script type="text/javascript" src="gol.js"></script>
+    <link rel="stylesheet" href="gol.css?v=1">
+    <script type="text/javascript" src="gol.js?v=1"></script>
     
     <script type="text/javascript">
       window.onload = function() {
@@ -27,9 +27,9 @@
           GameOfLife.start();
         };
         
-        var stop = document.getElementById('stop');
-        stop.onmousedown = function () {
-          GameOfLife.stop();
+        var pause = document.getElementById('pause');
+        pause.onmousedown = function () {
+          GameOfLife.pause();
         };
 
         var reset = document.getElementById('reset');
@@ -46,11 +46,11 @@
       <p>
         <a id="start" href="#">start</a>
         <span> | </span>
-        <a id="stop" href="#">stop</a>
+        <a id="pause" href="#">pause</a>
         <span> | </span>
         <a id="reset" href="#">reset</a>
       </p>
-      <p>generation: <span id="tick">0</span></p>
+      <p>generation: <span id="generation">0</span></p>
     </div>
   </body>
 </html>
