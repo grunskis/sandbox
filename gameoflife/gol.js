@@ -23,6 +23,10 @@ var GameOfLife = (function () {
     BACKGROUND: '#fff', GRID: '#eee', CELL: '#000'
   };
 
+  var CellState = {
+    DEAD: 0, ALIVE: 1
+  };
+
   var Board = function (board, params) {
     var cells = null;
 
@@ -97,17 +101,15 @@ var GameOfLife = (function () {
     };
 
     function livingCell(row, col) {
-      var c = cells[row][col];
-
-      return (typeof(c) != 'undefined') && (c != 0);
+      return cells[row][col] == CellState.ALIVE;
     };
 
     function spawn(row, col) {
-      cells[row][col] = 1;
+      cells[row][col] = CellState.ALIVE;
     };
 
     function die(row, col) {
-      cells[row][col] = 0;
+      cells[row][col] = CellState.DEAD;
     };
 
     function calcRow(e) {
@@ -130,7 +132,7 @@ var GameOfLife = (function () {
         spawn(row, col);
       }
 
-      return state ? 0 : 1;
+      return state ? CellState.DEAD : CellState.ALIVE;
     };
 
     function setCells(e, state) {
@@ -149,8 +151,6 @@ var GameOfLife = (function () {
     return {
       'rows': rows,
       'cols': cols,
-      'spawn': spawn,
-      'die': die,
       'tick': tick,
       'neighbours': neighbours,
       'livingCell': livingCell,
