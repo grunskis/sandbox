@@ -32,8 +32,8 @@ var GameOfLife = (function () {
     var tick = 0;
 
     (function () {
-      rows = params.rows;
-      cols = params.cols;
+      rows = Math.ceil(params.rows);
+      cols = Math.ceil(params.cols);
 
       cells = new Array(rows);
       for (var row = 0; row <= rows; row++) {
