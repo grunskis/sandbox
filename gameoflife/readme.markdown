@@ -2,4 +2,10 @@
 
 Rules of he game & history in [wikipedia](http://en.wikipedia.org/wiki/Conway's_Game_of_Life)...
 
-Tested only in Google Chrome!
+## How to play
+
+1. Enter fullscreen mode using F11
+2. Draw initial state of life
+3. Press "start" and enjoy!
+
+P.S Tested only in Google Chrome!
