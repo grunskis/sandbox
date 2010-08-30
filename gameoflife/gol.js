@@ -110,6 +110,42 @@ var GameOfLife = (function () {
       cells[row][col] = 0;
     };
 
+    function calcRow(e) {
+      return Math.ceil(e.layerY / params.blocksize)-1;
+    };
+
+    function calcCol(e) {
+      return Math.ceil(e.layerX / params.blocksize)-1;
+    };
+
+    function toggleCell(e) {
+      var col = calcCol(e);
+      var row = calcRow(e);
+
+      var state = livingCell(row, col);
+
+      if (state) {
+        die(row, col);
+      } else {
+        spawn(row, col);
+      }
+
+      return state ? 0 : 1;
+    };
+
+    function setCells(e, state) {
+      var col = calcCol(e);
+      var row = calcRow(e);
+
+      if (cells[row][col] != state) {
+        cells[row][col] = state;
+
+        return true;
+      }
+
+      return false;
+    };
+
     return {
       'rows': rows,
       'cols': cols,
@@ -118,6 +154,8 @@ var GameOfLife = (function () {
       'tick': tick,
       'neighbours': neighbours,
       'livingCell': livingCell,
+      'toggleCell': toggleCell,
+      'setCells': setCells
     };
   };
   
@@ -205,6 +243,8 @@ var GameOfLife = (function () {
   var before, tick;
   var interval = null;
 
+  var cellState = null;
+
   function init(canvas, defaults) {
     params = defaults;
     params.canvas = canvas;
@@ -219,29 +259,36 @@ var GameOfLife = (function () {
 
     board = new Board(null, params);
 
-    canvas.addEventListener('mousedown', click, true);
+    canvas.addEventListener('mousedown', mousedown, true);
+    canvas.addEventListener('mousemove', mousemove, true);
+    canvas.addEventListener('mouseup', mouseup, true);
 
     el('tick').textContent = "0"; // DEBUG
   };
 
-  function click(e) {
-    var col = Math.ceil(e.layerX / params.blocksize)-1;
-    var row = Math.ceil(e.layerY / params.blocksize)-1;
-
-    if (board.livingCell(row, col)) {
-      board.die(row, col);
-    } else {
-      board.spawn(row, col);
-    }
+  function mousedown(e) {
+    cellState = board.toggleCell(e);
 
     screen.redraw(board);
+  };
+  
+  function mouseup() {
+    cellState = null;
+  };
+
+  function mousemove(e) {
+    if (cellState != null) {
+      if (board.setCells(e, cellState)) {
+        screen.redraw(board);
+      }
+    }
   };
 
   function millis() {
     return (new Date().getTime()) - start;
   };
 
-  function  step() {
+  function step() {
     var now = millis();
     
     if (now - before > params.delay) {
@@ -252,7 +299,6 @@ var GameOfLife = (function () {
 
     return false;
   };
-
 
   function el(id) {
     return document.getElementById(id);
@@ -279,7 +325,9 @@ var GameOfLife = (function () {
     
     interval = setInterval(loop, 20);
 
-    params.canvas.removeEventListener('mousedown', click, true);
+    params.canvas.removeEventListener('mousedown', mousedown, true);
+    params.canvas.removeEventListener('mousemove', mousemove, true);
+    params.canvas.removeEventListener('mouseup', mouseup, true);
   };
 
   function stop() {
