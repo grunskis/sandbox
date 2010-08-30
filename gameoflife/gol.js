@@ -41,8 +41,8 @@ var GameOfLife = (function () {
       }
 
       if (board != null) {
-        for (row = 0; row <= rows; row++) {
-          for (var col = 0; col <= cols; col++) {
+        for (row = 0; row < rows; row++) {
+          for (var col = 0; col < cols; col++) {
             var count = board.neighbours(row, col);
 
             if (count < 2) {
