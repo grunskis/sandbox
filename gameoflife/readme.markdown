@@ -1,6 +1,6 @@
 # Conway's Game of Life
 
-Rules of he game & history in [wikipedia](http://en.wikipedia.org/wiki/Conway's_Game_of_Life)...
+Rules of the game & history in [wikipedia](http://en.wikipedia.org/wiki/Conway's_Game_of_Life)...
 
 ## How to play
 
